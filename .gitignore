@@ -6,3 +6,5 @@ android/build/
 ios/Pods/
 ios/build/
 *.olf
+.DS_Store
+.bundle
