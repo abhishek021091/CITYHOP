@@ -8,3 +8,6 @@ ios/build/
 *.olf
 .DS_Store
 .bundle
+*.keystore
+debug.keystore
+release-key.keystore
