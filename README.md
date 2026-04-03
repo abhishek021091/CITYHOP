@@ -1,4 +1,4 @@
-# 🚀 CITYHOP – Smart Shared Mobility Platform
+# 🛺 CityHop   – Smart Shared Mobility Platform
 
 CITYHOP is a **real-time smart mobility platform** designed for **fixed-route shared transport** (tuk-tuks, e-rickshaws, campus shuttles).  
 It enables **live tracking, dynamic seat availability, and intelligent passenger–driver matching** to make last-mile commuting faster, smarter, and more efficient.
