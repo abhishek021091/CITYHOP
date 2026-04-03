@@ -79,7 +79,7 @@ CITYHOP introduces a **real-time connected ecosystem** where passengers and driv
 
 ## 🏗️ Tech Stack
 
-- **Frontend:** React Native / Expo  
+- **Frontend:** React Native CLI  
 - **Backend:** Node.js / Firebase  
 - **Database:** MongoDB / Firestore  
 - **Realtime:** WebSockets / Firebase Realtime DB  
@@ -93,8 +93,13 @@ CITYHOP introduces a **real-time connected ecosystem** where passengers and driv
 
 - Node.js ≥ 18  
 - npm or yarn  
-- Android Studio / Xcode  
-- Expo CLI (if using Expo)  
+- React Native CLI environment setup  
+- Android Studio (for Android)  
+- Xcode (for iOS, macOS only)  
+- Java 17 (recommended for latest Android builds)  
+
+Follow the official React Native environment guide before running the app:  
+https://reactnative.dev/docs/environment-setup
 
 ---
 
@@ -104,3 +109,26 @@ CITYHOP introduces a **real-time connected ecosystem** where passengers and driv
 git clone https://github.com/your-username/cityhop.git
 cd cityhop
 npm install
+```
+
+---
+
+### ▶️ Run the App (React Native CLI)
+
+Start Metro bundler:
+
+```bash
+npm start
+```
+
+Run on Android:
+
+```bash
+npm run android
+```
+
+Run on iOS (macOS only):
+
+```bash
+npm run ios
+```
