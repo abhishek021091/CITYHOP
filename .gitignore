@@ -2,19 +2,34 @@
 node_modules/
 
 # Android
+android/.gradle/
 android/build/
 android/app/build/
-android/.gradle/
+android/app/.cxx/
 android/local.properties
+
+# Signing
+android/app/*.keystore
+*.jks
+
+# Build outputs
 *.apk
 *.aab
 *.so
 
+# iOS
+ios/Pods/
+ios/build/
+
 # Mac
 .DS_Store
+
+# Environment
+.env
 
 # Logs
 *.log
 
-# Firebase
-google-services.json
+# IDE
+.vscode/
+.idea/
