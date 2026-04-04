@@ -1,12 +1,60 @@
+# node_modules/
+# android/app/build/
+# android/.gradle/
+# android/app/.cxx/
+# android/build/
+# ios/Pods/
+# ios/build/
+
+# .DS_Store
+# .bundle
+# Node
 node_modules/
-android/app/build/
+npm-debug.log
+yarn-error.log
+
+# React Native
+.expo/
+.bundle/
+metro-cache/
+
+# Android
 android/.gradle/
-android/app/.cxx/
 android/build/
+android/app/build/
+android/app/.cxx/
+android/local.properties
+
+# Android secrets (IMPORTANT)
+android/app/*.keystore
+android/*.keystore
+*.jks
+
+# iOS
 ios/Pods/
 ios/build/
+ios/DerivedData/
 
+# Mac
 .DS_Store
-.bundle
 
+# Environment
+.env
+.env.local
+.env.production
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Firebase (KEEP google-services.json)
+# DO NOT IGNORE google-services.json
+
+# Misc
+coverage/
+dist/
+tmp/
 
