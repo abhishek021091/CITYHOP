@@ -7,11 +7,11 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import IntroScreen      from '../introscreen';
 import RoleSelect       from '../RoleSelect';
 import PassengerAuth    from '../passenger/PassengerAuth';
-import PassengerHome    from '../passenger/PassengerHome';
-import PassengerProfile from '../passenger/PassengerProfile';
+//import PassengerHome    from '../passenger/PassengerHome';
+//import PassengerProfile from '../passenger/PassengerProfile';
 import DriverAuth       from '../driver/DriverAuth';
-import DriverHome       from '../driver/DriverHome';
-import DriverProfile    from '../driver/DriverProfile';
+//import DriverHome       from '../driver/DriverHome';
+//import DriverProfile    from '../driver/DriverProfile';
 
 const Stack = createNativeStackNavigator();
 
