@@ -1,11 +1,19 @@
-# node_modules/
-# android/app/build/
-# android/.gradle/
-# android/app/.cxx/
-# android/build/
-# ios/Pods/
-# ios/build/
+node_modules/
 
-# .DS_Store
-# .bundle
-# Node
+android/.gradle/
+android/build/
+android/app/build/
+android/app/.cxx/
+
+android/app/*.keystore
+*.jks
+
+ios/Pods/
+ios/build/
+
+.DS_Store
+
+.env
+
+.vscode/
+.idea/
