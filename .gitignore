@@ -1,19 +1,20 @@
+# React Native
 node_modules/
 
-android/.gradle/
+# Android
 android/build/
 android/app/build/
-android/app/.cxx/
+android/.gradle/
+android/local.properties
+*.apk
+*.aab
+*.so
 
-android/app/*.keystore
-*.jks
-
-ios/Pods/
-ios/build/
-
+# Mac
 .DS_Store
 
-.env
+# Logs
+*.log
 
-.vscode/
-.idea/
+# Firebase
+google-services.json
