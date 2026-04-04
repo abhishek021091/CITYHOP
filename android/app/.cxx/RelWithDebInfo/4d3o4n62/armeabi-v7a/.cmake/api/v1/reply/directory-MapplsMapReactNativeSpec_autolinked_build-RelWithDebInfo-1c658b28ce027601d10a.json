@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "MapplsMapReactNativeSpec_autolinked_build",
+		"source" : "/Users/sanjeetkumar/Desktop/test/GoogleLoginTest/node_modules/mappls-map-react-native/android/build/generated/source/codegen/jni"
+	}
+}
