@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "91642349564",
+    "project_id": "logintest-7253a",
+    "storage_bucket": "logintest-7253a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91642349564:android:cbff9838a9601812855479",
+        "android_client_info": {
+          "package_name": "com.googlelogintest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91642349564-f6v3e8445n4orhfp2fvucl2hsrlgjgv7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw_hUueII6DfdZLmnXvKKld-tkKSv5ZlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91642349564-f6v3e8445n4orhfp2fvucl2hsrlgjgv7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

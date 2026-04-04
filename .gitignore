@@ -5,10 +5,11 @@ android/app/.cxx/
 android/build/
 ios/Pods/
 ios/build/
-*.olf
+
 .DS_Store
 .bundle
 *.keystore
 debug.keystore
 release-key.keystore
-
+src/
+src/
