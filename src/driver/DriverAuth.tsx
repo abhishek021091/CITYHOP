@@ -74,15 +74,7 @@ export default function DriverAuth() {
         setSignup(false);
       } else {
         await signInWithEmailAndPassword(auth, email, password);
-        
-        // --- MID EVALUATION CHANGE ---
-        // Replaced navigation.replace('DriverHome') with Alert + RoleSelect redirect
-        Alert.alert(
-          "Login Success",
-          "Driver dashboard will be shown in the final build.",
-          [{ text: "OK", onPress: () => navigation.navigate("RoleSelect") }]
-        );
-        // -----------------------------
+        navigation.replace('DriverHome');
       }
     } catch (error: any) {
       Alert.alert('Error', error.message);
