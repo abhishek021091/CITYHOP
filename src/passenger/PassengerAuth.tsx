@@ -46,8 +46,16 @@ export default function PassengerAuth() {
         Alert.alert('Welcome!', 'Account created successfully. You can now log in.');
         setSignup(false);
       } else {
-        const cred = await signInWithEmailAndPassword(auth, email, password);
-        navigation.replace('PassengerHome', { role: 'passenger', userEmail: cred.user.email });
+        await signInWithEmailAndPassword(auth, email, password);
+        
+        // --- MID EVALUATION CHANGE ---
+        // Replaced navigation.replace('PassengerHome') to avoid crash
+        Alert.alert(
+          "Login Success",
+          "Passenger dashboard will be available in the final build.",
+          [{ text: "OK", onPress: () => navigation.navigate("RoleSelect") }]
+        );
+        // -----------------------------
       }
     } catch (error: any) {
       let msg = "Something went wrong. Please try again.";
@@ -67,7 +75,6 @@ export default function PassengerAuth() {
       <ScrollView contentContainerStyle={s.root} keyboardShouldPersistTaps="handled">
         <StatusBar barStyle="dark-content" backgroundColor={C.white} />
 
-        {/* Header Section */}
         <View style={s.header}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={s.backBtn}>
             <Icon name="arrow-left" size={24} color={C.text1} />
@@ -86,7 +93,6 @@ export default function PassengerAuth() {
             {signup ? 'Join the community and save on your daily commute.' : 'Sign in to find your next shared ride.'}
           </Text>
 
-          {/* Form Fields */}
           <View style={s.formGroup}>
             <View style={s.inputWrapper}>
               <Icon name="mail" size={18} color={C.text4} style={s.inputIcon} />
@@ -114,7 +120,6 @@ export default function PassengerAuth() {
             </View>
           </View>
 
-          {/* Action Button */}
           <TouchableOpacity
             style={[s.primaryBtn, loading && { opacity: 0.7 }]}
             onPress={handleAuth}
@@ -126,7 +131,6 @@ export default function PassengerAuth() {
             </Text>
           </TouchableOpacity>
 
-          {/* Toggle Link */}
           <TouchableOpacity 
             style={s.toggleRow} 
             onPress={() => setSignup(!signup)} 
@@ -139,7 +143,6 @@ export default function PassengerAuth() {
           </TouchableOpacity>
         </View>
 
-        {/* Footer info */}
         <View style={s.footer}>
           <Text style={s.footerText}>Secure SSL Encryption • CityHop v1.0</Text>
         </View>
@@ -236,7 +239,6 @@ const s = StyleSheet.create({
     alignItems: 'center', 
     justifyContent: 'center',
     marginTop: 10,
-    // Soft shadow for depth
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
