@@ -68,11 +68,21 @@ export default function DriverAuth() {
         await setDoc(doc(db, 'drivers', cred.user.uid), {
           name, phone, vehicle, license: license.toUpperCase(), email, role: 'driver', createdAt: serverTimestamp(),
         });
-        Alert.alert('Success', 'Account created! Please login.');
+        
+        // Mid-eval update: Redirect to login view after signup
+        Alert.alert('Success', 'Account created! Please login to verify.');
         setSignup(false);
       } else {
         await signInWithEmailAndPassword(auth, email, password);
-        navigation.replace('DriverHome');
+        
+        // --- MID EVALUATION CHANGE ---
+        // Replaced navigation.replace('DriverHome') with Alert + RoleSelect redirect
+        Alert.alert(
+          "Login Success",
+          "Driver dashboard will be shown in the final build.",
+          [{ text: "OK", onPress: () => navigation.navigate("RoleSelect") }]
+        );
+        // -----------------------------
       }
     } catch (error: any) {
       Alert.alert('Error', error.message);
@@ -88,8 +98,6 @@ export default function DriverAuth() {
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
         style={{ flex: 1 }}
-        // On Android, if the header is getting hidden, set this to 0. 
-        // On iOS, set it to roughly 64-90.
         keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : -100} 
       >
         <ScrollView 
@@ -97,7 +105,6 @@ export default function DriverAuth() {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {/* COMPACT HEADER to save space */}
           <View style={s.header}>
             <TouchableOpacity onPress={() => navigation.goBack()} style={s.backBtn}>
               <Icon name="arrow-left" size={22} color={C.text1} />
@@ -153,20 +160,20 @@ const s = StyleSheet.create({
   container: { flex: 1, backgroundColor: C.white },
   scrollContent: { 
     flexGrow: 1, 
-    paddingBottom: 60 // Added extra padding at bottom so scroll can reach end
+    paddingBottom: 60 
   },
   header: { 
     paddingHorizontal: 24, 
-    paddingTop: Platform.OS === 'android' ? 10 : 10, // Reduced from 24/52
+    paddingTop: Platform.OS === 'android' ? 10 : 10, 
     flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent: 'space-between',
-    height: 50 // Reduced height
+    height: 50 
   },
   backBtn: { width: 36, height: 36, justifyContent: 'center', alignItems: 'center', borderRadius: 18, backgroundColor: '#F3F4F6' },
   badge: { backgroundColor: C.goldBg, paddingHorizontal: 10, paddingVertical: 2, borderRadius: 6 },
   badgeTxt: { fontSize: 9, fontWeight: '800', color: C.gold, letterSpacing: 0.5 },
-  body: { paddingHorizontal: 24, paddingTop: 10 }, // Reduced padding
+  body: { paddingHorizontal: 24, paddingTop: 10 }, 
   brand: { fontSize: 18, fontWeight: '900', color: C.text1, marginBottom: 4 },
   formTitle: { fontSize: 26, fontWeight: '800', color: C.text1, marginBottom: 4 },
   formSub: { fontSize: 13, color: C.text3, marginBottom: 15 },
