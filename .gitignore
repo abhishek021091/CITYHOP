@@ -1,15 +1,16 @@
-# node_modules/
-# android/app/build/
-# android/.gradle/
-# android/app/.cxx/
-# android/build/
-# ios/Pods/
-# ios/build/
-
-# .DS_Store
-# .bundle
 # Node
 node_modules/
+npm-debug.log
+yarn-error.log
+
+# React Native
+.expo/
+.bundle/
+metro-cache/
+
+# Android
+android/.gradle/
+android/build/
 npm-debug.log
 yarn-error.log
 
@@ -31,10 +32,20 @@ android/*.keystore
 *.jks
 
 # iOS
+android/local.properties
+
+# Android secrets (IMPORTANT)
+android/app/*.keystore
+android/*.keystore
+*.jks
+
+# iOS
 ios/Pods/
 ios/build/
 ios/DerivedData/
+ios/DerivedData/
 
+# Mac
 # Mac
 .DS_Store
 
@@ -57,4 +68,3 @@ ios/DerivedData/
 coverage/
 dist/
 tmp/
-
