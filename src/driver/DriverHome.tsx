@@ -3,6 +3,7 @@ import {
   View, StyleSheet, TextInput, FlatList, TouchableOpacity,
   Text, Animated, ActivityIndicator, Alert,
   Platform, Keyboard, StatusBar, PermissionsAndroid, Dimensions, ScrollView,
+  KeyboardAvoidingView,
 } from "react-native";
 import MapplsGL from "mappls-map-react-native";
 import Geolocation from "@react-native-community/geolocation";
@@ -498,6 +499,7 @@ export default function DriverHome({ navigation }: Props) {
   const isFull        = bookedSeats >= totalSeats;
 
   return (
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
     <View style={s.root}>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
 
@@ -564,7 +566,13 @@ export default function DriverHome({ navigation }: Props) {
 
         {/* ── HOME ── */}
         {screen === "home" && (
-          <View>
+          <ScrollView
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={s.panelScrollContent}
+            nestedScrollEnabled
+          >
             <Text style={s.greeting}>{"Hello, " + driverName + " 👋"}</Text>
             <Text style={s.heading}>Set your route</Text>
             <View style={s.searchBox}>
@@ -598,6 +606,7 @@ export default function DriverHome({ navigation }: Props) {
                   </View>
                 )}
                 <FlatList
+                  scrollEnabled={false}
                   data={searchResults.slice(0, 6)} keyExtractor={(_, i) => i.toString()} keyboardShouldPersistTaps="handled"
                   renderItem={({ item, index }) => (
                     <TouchableOpacity style={[s.resultRow, index > 0 && s.resultBorder]} onPress={() => handleSelectPlace(item)} activeOpacity={0.6}>
@@ -611,12 +620,17 @@ export default function DriverHome({ navigation }: Props) {
                 />
               </View>
             )}
-          </View>
+          </ScrollView>
         )}
 
         {/* ── SETUP ── */}
         {screen === "setup" && (
-          <ScrollView showsVerticalScrollIndicator={false} keyboardShouldPersistTaps="handled">
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
+            contentContainerStyle={{ flexGrow: 1, paddingBottom: 24 }}
+          >
             <View style={s.rowHeader}>
               <TouchableOpacity style={s.backBtn} onPress={() => setScreen("home")}>
                 <Text style={s.backBtnTxt}>←</Text>
@@ -968,6 +982,7 @@ export default function DriverHome({ navigation }: Props) {
         </Animated.View>
       )}
     </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -1003,7 +1018,8 @@ const s = StyleSheet.create({
   liveBadgeDot:   { width: 7, height: 7, borderRadius: 4, backgroundColor: C.green },
   liveBadgeTxt:   { fontSize: 12, fontWeight: "700", color: C.green, letterSpacing: 0.5 },
 
-  panel:          { backgroundColor: C.white, paddingHorizontal: 20, paddingTop: 10, paddingBottom: 24, maxHeight: "60%", elevation: 18, shadowColor: "#000", shadowOffset: { width: 0, height: -3 }, shadowOpacity: 0.08, shadowRadius: 10 },
+  panelScrollContent: { flexGrow: 1, paddingBottom: 12 },
+  panel:          { backgroundColor: C.white, paddingHorizontal: 20, paddingTop: 10, paddingBottom: 12, maxHeight: "60%", elevation: 18, shadowColor: "#000", shadowOffset: { width: 0, height: -3 }, shadowOpacity: 0.08, shadowRadius: 10 },
   handle:         { width: 32, height: 3, backgroundColor: C.border, alignSelf: "center", marginBottom: 16 },
   greeting:       { fontSize: 12, color: C.text3, fontWeight: "500", marginBottom: 3 },
   heading:        { fontSize: 19, fontWeight: "700", color: C.text1, marginBottom: 12 },

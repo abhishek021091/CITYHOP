@@ -95,10 +95,10 @@ export default function DriverAuth() {
     <View style={s.container}>
       <StatusBar barStyle="dark-content" backgroundColor={C.white} />
       
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 80 : -100} 
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 8 : 0}
       >
         <ScrollView 
           contentContainerStyle={s.scrollContent} 
