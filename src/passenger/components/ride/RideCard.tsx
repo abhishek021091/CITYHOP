@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import type { ActiveRide } from "../../booking/types";
 import { fmtDuration } from "../../booking/format";
 import { RIDE_THEME as C } from "./theme";
@@ -7,10 +7,9 @@ import { RIDE_THEME as C } from "./theme";
 interface Props {
   ride: ActiveRide;
   index: number;
-  onBook: (ride: ActiveRide) => void;
 }
 
-export default function RideCard({ ride, index, onBook }: Props) {
+export default function RideCard({ ride, index }: Props) {
   const seatsLeft = ride.totalSeats - ride.bookedSeats;
   const isAlmostFull = seatsLeft === 1;
   const walk =
@@ -38,11 +37,12 @@ export default function RideCard({ ride, index, onBook }: Props) {
               {seatsLeft} seat{seatsLeft !== 1 ? "s" : ""} left
             </Text>
           </View>
+          <View style={styles.fareRow}>
+            <Text style={styles.fareLabel}>Expected fare:</Text>
+            <Text style={styles.fareValue}>₹{ride.pricePerSeat}</Text>
+          </View>
         </View>
       </View>
-      <TouchableOpacity style={styles.bookBtn} onPress={() => onBook(ride)} activeOpacity={0.85}>
-        <Text style={styles.bookTxt}>BOOK</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -87,12 +87,15 @@ const styles = StyleSheet.create({
   tagWarn: { backgroundColor: C.redBg },
   tagTxt: { fontSize: 11, fontWeight: "800", color: C.green },
   tagTxtWarn: { color: C.red },
-  bookBtn: {
-    marginTop: 12,
-    backgroundColor: C.green,
-    paddingVertical: 10,
-    borderRadius: 10,
+  fareRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
+    marginTop: 14,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: C.border,
   },
-  bookTxt: { color: "#fff", fontSize: 14, fontWeight: "800" },
+  fareLabel: { fontSize: 12, color: C.text3, fontWeight: "600" },
+  fareValue: { fontSize: 14, color: C.text1, fontWeight: "800" },
 });

@@ -33,6 +33,7 @@ export interface ActiveRide {
   destination: { name: string; latitude: number; longitude: number };
   totalSeats: number;
   bookedSeats: number;
+  pricePerSeat: number;
   farePerSeat: number;
   distance: number;
   duration: number;

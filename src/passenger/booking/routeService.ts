@@ -26,8 +26,8 @@ export function buildDemoRoute(origin: Coords, dest: Coords): Route {
 
 /** Static demo autos near pickup (testing). */
 const DEMO_DRIVER_SPECS = [
-  { id: "1", dLat: 0.002, dLng: 0.002, seats: 2, etaMin: 5, price: 80 },
-  { id: "2", dLat: -0.003, dLng: 0.001, seats: 3, etaMin: 7, price: 70 },
+  { id: "1", dLat: 0.002, dLng: 0.002, seats: 2, etaMin: 5, pricePerSeat: 30 },
+  { id: "2", dLat: -0.003, dLng: 0.001, seats: 3, etaMin: 7, pricePerSeat: 30 },
 ] as const;
 
 export function buildStaticDemoDriverRides(
@@ -57,7 +57,8 @@ export function buildStaticDemoDriverRides(
       destination: { name: dropName, latitude: drop[1], longitude: drop[0] },
       totalSeats: s.seats,
       bookedSeats: 0,
-      farePerSeat: s.price,
+      pricePerSeat: s.pricePerSeat,
+      farePerSeat: s.pricePerSeat,
       distance: tripDistanceM,
       duration,
       passengers: [],
@@ -184,7 +185,6 @@ export function buildMatchedRides(
 ): ActiveRide[] {
   if (passengerPolyline.length < 2) return [];
 
-  const base = Math.max(15, Math.round((tripDistanceM / 1000) * 8));
   const rows: ActiveRide[] = [];
 
   for (let i = 0; i < DRIVER_SEEDS.length; i++) {
@@ -197,7 +197,7 @@ export function buildMatchedRides(
     if (distToPassengerRoute > DRIVER_MAX_DIST_FROM_PASSENGER_ROUTE_M) continue;
 
     const pickupDistanceM = haversineDistance(pickup, driverMarker);
-    const farePerSeat = Math.max(12, base - i + Math.round(pickupDistanceM / 800));
+    const pricePerSeat = 30;
     const duration = Math.max(120, Math.round(tripDurationS * (0.9 + Math.min(pickupDistanceM, 2000) / 8000)));
 
     rows.push({
@@ -211,7 +211,8 @@ export function buildMatchedRides(
       destination: { name: dropName, latitude: drop[1], longitude: drop[0] },
       totalSeats: d.seats,
       bookedSeats: d.booked,
-      farePerSeat,
+      pricePerSeat,
+      farePerSeat: pricePerSeat,
       distance: tripDistanceM,
       duration,
       passengers: Array(d.booked).fill("passenger_uid"),

@@ -27,7 +27,6 @@ interface Props {
   loadingRides: boolean;
   matchingRides: ActiveRide[];
   onClose: () => void;
-  onBook: (ride: ActiveRide) => void;
 }
 
 export default function RideBottomSheet({
@@ -40,12 +39,14 @@ export default function RideBottomSheet({
   loadingRides,
   matchingRides,
   onClose,
-  onBook,
 }: Props) {
   const trip = getRouteTripDisplay(route, routeLoading, routeUnavailable, loadingRides, matchingRides.length);
 
+  const expectedFare = matchingRides[0]?.pricePerSeat ?? null;
+
   return (
     <Animated.View style={[styles.sheet, { transform: [{ translateY: sheetY }] }]}>
+
       <View style={styles.handle} />
       <View style={styles.headerRow}>
         <View style={{ flex: 1 }}>
@@ -82,6 +83,12 @@ export default function RideBottomSheet({
           <Text style={styles.metaLabel}>ETA · Distance</Text>
           <Text style={[styles.metaValue, trip.isError && styles.metaWarn]}>{trip.text}</Text>
         </View>
+        {expectedFare !== null && (
+          <View style={styles.fareSummary}>
+            <Text style={styles.fareSummaryLabel}>Expected fare</Text>
+            <Text style={styles.fareSummaryValue}>₹{expectedFare}</Text>
+          </View>
+        )}
       </View>
 
       <View style={styles.sheetDivider} />
@@ -93,15 +100,14 @@ export default function RideBottomSheet({
         </View>
       ) : matchingRides.length === 0 ? (
         <View style={styles.emptyBox}>
-          <Text style={styles.emptyTitle}>No shared matches yet</Text>
-          <Text style={styles.emptySub}>No autos near your route right now. Try again soon.</Text>
+          <Text style={styles.emptyTitle}>No autos available on your route right now</Text>
         </View>
       ) : (
         <FlatList
           data={matchingRides}
           keyExtractor={r => r.id}
           contentContainerStyle={styles.ridesList}
-          renderItem={({ item, index }) => <RideCard ride={item} index={index} onBook={onBook} />}
+          renderItem={({ item, index }) => <RideCard ride={item} index={index} />}
         />
       )}
     </Animated.View>
@@ -178,6 +184,9 @@ const styles = StyleSheet.create({
   metaLabel: { fontSize: 11, fontWeight: "600", color: C.text3, marginBottom: 4 },
   metaValue: { fontSize: 15, fontWeight: "800", color: C.text1 },
   metaWarn: { color: C.gold, fontWeight: "800" },
+  fareSummary: { marginTop: 12, paddingTop: 12, borderTopWidth: 1, borderTopColor: C.border },
+  fareSummaryLabel: { fontSize: 12, fontWeight: "700", color: C.text3, marginBottom: 4 },
+  fareSummaryValue: { fontSize: 16, fontWeight: "900", color: C.text1 },
   sheetDivider: { height: 1, backgroundColor: C.border },
   sheetLoading: { flexDirection: "row", alignItems: "center", padding: 22, gap: 12 },
   sheetLoadingTxt: { fontSize: 14, color: C.text3, fontWeight: "600", flex: 1 },

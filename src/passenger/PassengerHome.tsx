@@ -378,7 +378,8 @@ export default function PassengerHome({ navigation }: Props) {
         rideId: selectedRide.id,
         driverName: selectedRide.driverName,
         autoNumber: selectedRide.autoNumber,
-        farePerSeat: selectedRide.farePerSeat,
+        pricePerSeat: selectedRide.pricePerSeat,
+        farePerSeat: selectedRide.pricePerSeat,
         paymentMethod: payMethod,
         origin: selectedRide.origin,
         destination: selectedRide.destination,
@@ -545,7 +546,6 @@ export default function PassengerHome({ navigation }: Props) {
             hideSheet();
             setScreen("home");
           }}
-          onBook={handleBook}
         />
 
         {screen === "payment" && selectedRide && (
@@ -581,7 +581,7 @@ export default function PassengerHome({ navigation }: Props) {
                     <Text style={s.paySummaryDriver}>{selectedRide.driverName}</Text>
                   </View>
                   <View style={s.payFareTag}>
-                    <Text style={s.payFareTagTxt}>₹{selectedRide.farePerSeat}</Text>
+                    <Text style={s.payFareTagTxt}>₹{selectedRide.pricePerSeat}</Text>
                   </View>
                 </View>
                 <View style={s.paySummaryDivider} />
@@ -600,28 +600,9 @@ export default function PassengerHome({ navigation }: Props) {
                 </View>
               </View>
 
-              <View style={s.fareBreakCard}>
-                <View style={s.fareBreakRow}>
-                  <Text style={s.fareBreakLabel}>Seat fare</Text>
-                  <Text style={s.fareBreakVal}>₹{selectedRide.farePerSeat}</Text>
-                </View>
-                <View style={s.fareBreakDivider} />
-                <View style={s.fareBreakRow}>
-                  <Text style={s.fareBreakLabel}>Distance</Text>
-                  <Text style={s.fareBreakVal}>{fmtDistance(selectedRide.distance)}</Text>
-                </View>
-                <View style={s.fareBreakDivider} />
-                <View style={s.fareBreakRow}>
-                  <Text style={s.fareBreakLabel}>Platform fee</Text>
-                  <Text style={s.fareBreakVal}>₹0</Text>
-                </View>
-                <View style={s.fareBreakDivider} />
-                <View style={s.fareBreakRow}>
-                  <Text style={[s.fareBreakLabel, { fontWeight: "700", color: C.text1 }]}>Total</Text>
-                  <Text style={[s.fareBreakVal, { fontWeight: "800", fontSize: 16, color: C.text1 }]}>
-                    ₹{selectedRide.farePerSeat}
-                  </Text>
-                </View>
+<View style={s.paySummarySubRow}>
+                <Text style={s.paySummarySubLabel}>Price per seat</Text>
+                <Text style={s.paySummarySubValue}>₹{selectedRide.pricePerSeat} per seat</Text>
               </View>
 
               <Text style={s.sectionLabel}>PAYMENT METHOD</Text>
@@ -654,7 +635,7 @@ export default function PassengerHome({ navigation }: Props) {
               {payMethod === "cash" && (
                 <View style={s.cashNote}>
                   <Text style={s.cashNoteTxt}>
-                    {"💵  Pay ₹" + selectedRide.farePerSeat + " in cash directly to the driver when you board."}
+                    {"💵  Pay ₹" + selectedRide.pricePerSeat + " in cash directly to the driver when you board."}
                   </Text>
                 </View>
               )}
@@ -679,7 +660,7 @@ export default function PassengerHome({ navigation }: Props) {
                   <ActivityIndicator color="#fff" />
                 ) : (
                   <Text style={s.payBtnTxt}>
-                    {payMethod === "cash" ? "Confirm Booking" : "Pay ₹" + selectedRide.farePerSeat}
+                    {payMethod === "cash" ? "Confirm Booking" : "Pay ₹" + selectedRide.pricePerSeat}
                   </Text>
                 )}
               </TouchableOpacity>
@@ -736,7 +717,7 @@ export default function PassengerHome({ navigation }: Props) {
               <View style={s.ticketRow}>
                 <Text style={s.ticketLabel}>Fare paid</Text>
                 <Text style={[s.ticketVal, { color: C.green, fontWeight: "800" }]}>
-                  {"₹" + selectedRide.farePerSeat}
+                  {"₹" + selectedRide.pricePerSeat}
                 </Text>
               </View>
               <View style={s.ticketDivider} />
@@ -792,7 +773,7 @@ export default function PassengerHome({ navigation }: Props) {
                 </Text>
               </View>
               <View style={s.trackFareBadge}>
-                <Text style={s.trackFareTxt}>{"₹" + selectedRide.farePerSeat}</Text>
+                <Text style={s.trackFareTxt}>{"₹" + selectedRide.pricePerSeat}</Text>
               </View>
             </View>
 
@@ -960,6 +941,9 @@ const s = StyleSheet.create({
   payRouteDot: { width: 8, height: 8, borderRadius: 4 },
   payRouteTxt: { fontSize: 12, color: C.text2, fontWeight: "600", flex: 1 },
   payRouteConnector: { height: 1, backgroundColor: C.border, marginLeft: 32 },
+  paySummarySubRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", paddingVertical: 12, paddingHorizontal: 14 },
+  paySummarySubLabel: { fontSize: 13, color: C.text3, fontWeight: "600" },
+  paySummarySubValue: { fontSize: 14, color: C.text1, fontWeight: "800" },
   fareBreakCard: { borderWidth: 1, borderColor: C.border, borderRadius: 12, marginBottom: 12, overflow: "hidden" },
   fareBreakRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", padding: 12 },
   fareBreakDivider: { height: 1, backgroundColor: C.border },

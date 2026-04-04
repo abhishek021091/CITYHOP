@@ -3,6 +3,7 @@ import {
   View,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   FlatList,
   Animated,
@@ -184,6 +185,7 @@ export default function DriverHome({ navigation }: Props) {
   const [selectedRoute, setSelectedRoute] = useState<PredefinedRoute | null>(null);
   const [totalSeats, setTotalSeats] = useState(3);
   const [availableSeats, setAvailableSeats] = useState(3);
+  const [pricePerSeat, setPricePerSeat] = useState("30");
 
   const [activeRideId, setActiveRideId] = useState<string | null>(null);
   const [goingLive, setGoingLive] = useState(false);
@@ -400,6 +402,7 @@ export default function DriverHome({ navigation }: Props) {
     try {
       const coords = selectedRoute.polyline;
       const avail = totalSeats;
+      const price = Math.max(1, Number(pricePerSeat) || 30);
       const docRef = await addDoc(collection(db, "rides"), {
         driverUid: currentUser.uid,
         driverName,
@@ -424,7 +427,8 @@ export default function DriverHome({ navigation }: Props) {
         bookedSeats: 0,
         availableSeats: avail,
         passengers: [],
-        farePerSeat: 0,
+        pricePerSeat: price,
+        farePerSeat: price,
         distance: haversineDistance(selectedRoute.start, selectedRoute.end),
         duration: 0,
         driverLocation: lastCoords.current
@@ -768,6 +772,16 @@ export default function DriverHome({ navigation }: Props) {
               })}
             </View>
 
+            <Text style={styles.fieldLabel}>PRICE PER SEAT</Text>
+            <TextInput
+              style={styles.priceInput}
+              placeholder="Enter price per seat"
+              placeholderTextColor={C.text4}
+              keyboardType="numeric"
+              value={pricePerSeat}
+              onChangeText={setPricePerSeat}
+            />
+
             <TouchableOpacity
               style={[styles.liveBtn, (!selectedRoute || goingLive) && { opacity: 0.55 }]}
               disabled={!selectedRoute || goingLive}
@@ -1051,6 +1065,18 @@ const styles = StyleSheet.create({
   seatNumOn: { color: C.text1 },
   seatLbl: { fontSize: 10, color: C.text4, marginTop: 2 },
   seatLblOn: { color: C.text3 },
+  priceInput: {
+    borderWidth: 1,
+    borderColor: C.border,
+    backgroundColor: C.inputBg,
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    fontSize: 15,
+    fontWeight: "600",
+    color: C.text1,
+    marginBottom: 18,
+  },
   liveBtn: {
     backgroundColor: C.green,
     paddingVertical: 15,
