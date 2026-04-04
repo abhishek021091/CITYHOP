@@ -8,7 +8,5 @@ ios/build/
 
 .DS_Store
 .bundle
-*.keystore
-debug.keystore
-release-key.keystore
+
 
